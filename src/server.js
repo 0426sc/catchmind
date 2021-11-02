@@ -17,17 +17,23 @@ app.get("/", (req, res) => res.render("home"));
 app.use(express.static(join(__dirname, "static")));
 
 const handleListener = () => {
-    console.log(`부히히 : http://localhost:${PORT}`);
+    console.log(`✅ 부히히 : http://localhost:${PORT}`);
 }
 
 const server = app.listen(PORT, handleListener);
 const io = socketIO(server);
 
 io.on("connection", (socket) => {
-    setTimeout(() => {
-        socket.emit("Ground pound");
-    }, 5000); 
- })
+    socket.on("holy moly", ({ message }) => {
+        socket.broadcast.emit("WTF?", {
+            message,
+            nickname: socket.shit || "[ ]"
+        });
+    });
+    socket.on("ty", ({ nickname }) => {
+        socket.shit = nickname;
+    })
+});
 
 // let arr = [];
 
