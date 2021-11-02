@@ -1,4 +1,18 @@
 const socket = io("/");
 
+// socket.on("WTF?", ({message}) => console.log({message}));
 
-socket.on("Ground pound", () => console.log("Who did Ground pound your mom?"));
+function handleMessageNoti(data) {
+    const { message, nickname } = data;
+    console.log(`${nickname} said  ${message}`);
+}
+
+socket.on("WTF?", handleMessageNoti);
+
+function sendMessage(message) {
+    socket.emit("holy moly", { message });
+}
+
+function setNickname(nickname) {
+    socket.emit("ty", { nickname });
+}
